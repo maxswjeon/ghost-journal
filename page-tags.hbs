@@ -1,0 +1,39 @@
+{{!< default}}
+
+{{#post}}
+{{#get "tags" limit="all" include="count.posts" order="count.posts desc"}}
+
+  <main id="gh-main" class="gh-main">
+    <article class="gh-article">
+      <header class="gh-article-header gh-canvas">
+        <h1 class="post-full-title">Tags</h1>
+        <span class="gh-article-meta mt-3">{{plural
+            pagination.total
+            empty=(t "No topics")
+            singular=(t "% topics total")
+            plural=(t "% topics total")
+          }}</span>
+      </header>
+      <div class="gh-content gh-canvas">
+        <div class="swjeon-tags">
+          {{#if tags}}
+            {{#foreach tags}}
+              <a class="swjeon-tag-item" href="{{ url }}"
+                {{#if accent_color}} data-accent-color="{{ accent_color }}" {{/if}}
+                style="--tag-accent-color: {{#if accent_color}} {{ accent_color }}; {{else}} var(--ghost-accent-color); {{/if}}">
+                <div class="swjeon-tag-title"><span>{{ name }}</span></div>
+                <div class="swjeon-tag-post-count">
+                  {{plural count.posts empty=(t "No Posts") singular=(t "<strong>%</strong> Post") plural=(t "<strong>%</strong> Posts")}}
+                </div>
+              </a>
+            {{/foreach}}
+          {{else}}
+            <p>{{t "No topics on this site!"}}</p>
+          {{/if}}
+        </div>
+      </div>
+    </article>
+  </main>
+
+{{/get}}
+{{/post}}
